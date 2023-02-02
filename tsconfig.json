@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "resolveJsonModule": true,
+        "esModuleInterop": true
+    },
+    "baseUrl": "./src",
+    "paths": {
+        "@models/*": [
+            "models/*"
+        ]
+    }
+}

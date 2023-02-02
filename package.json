@@ -1,5 +1,24 @@
 {
-  "dependencies": {
+  "name": "sunset_calc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@jest/globals": "^29.4.1",
+    "jest-environment-jsdom": "^29.4.1",
     "ts-jest": "^29.0.5"
-  }
+  },
+  "scripts": {
+    "test": "jest --coverage --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NghiaCaNgao/sun_calculator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NghiaCaNgao/sun_calculator/issues"
+  },
+  "homepage": "https://github.com/NghiaCaNgao/sun_calculator#readme",
+  "description": ""
 }

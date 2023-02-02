@@ -1,14 +1,4 @@
-export function deg2rad(degrees: number): number {
-    return degrees * Math.PI / 180;
-}
-
-export function rad2deg(radians: number): number {
-    return radians * (180 / Math.PI);
-}
-
-export function excelMod(num: number, divisor: number): number {
-    return num - divisor * Math.floor(num / divisor);
-}
+import { deg2rad, rad2deg, excelMod } from "./utils";
 
 export function convertToJulianDay(date: Date): number {
     return (date.valueOf() / 86400000) + 2440587.5;
@@ -193,7 +183,7 @@ export function getHourAngle(date: Date, time: number, long: number, timeZone: n
     const TrueSolarTime = getTrueSolarTime(date, time, long, timeZone);
 
     return (TrueSolarTime / 4 < 0)
-        ? TrueSolarTime / 4 + 180
+        ? TrueSolarTime / 4 + 180 // uncover line
         : TrueSolarTime / 4 - 180;
 }
 
@@ -221,7 +211,7 @@ export function getApproxAtmosphericRefraction(date: Date, time: number, lat: nu
 
     return (() => {
         if (SolarElevationAngle > 85)
-            return 0;
+            return 0; // uncover line
         else if (SolarElevationAngle > 5) {
             let a = Math.tan(deg2rad(SolarElevationAngle));
             let b = Math.pow(Math.tan(deg2rad(SolarElevationAngle)), 3);
@@ -269,14 +259,4 @@ export function getSolarAzimuthAngle(date: Date, time: number, lat: number, long
     } else {
         return excelMod(540 - rad2deg(f), 360);
     }
-}
-
-export function convert(dayTime: number): string {
-    let timeInSecond = Math.round(dayTime * 24 * 60 * 60);
-
-    let hours = Math.floor(timeInSecond / 3600);
-    let mins = Math.floor((timeInSecond % 3600) / 60);
-    let seconds = (timeInSecond % 86400) % 60;
-
-    return `${hours}:${mins}:${seconds}`;
 }
