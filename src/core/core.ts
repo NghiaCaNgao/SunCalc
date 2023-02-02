@@ -1,14 +1,31 @@
 import { deg2rad, rad2deg, excelMod } from "./utils";
 
+/**
+ * Convert Gregory to Julius day.
+ * Julius day [https://vi.wikipedia.org/wiki/Ng%C3%A0y_Julius]
+ * @param date Gregory date.
+ * @returns Julius day.
+ */
 export function convertToJulianDay(date: Date): number {
     return (date.valueOf() / 86400000) + 2440587.5;
 }
 
+/**
+ * Calculate julian century.
+ * Julius day [https://vi.wikipedia.org/wiki/Ng%C3%A0y_Julius]
+ * @param data Gregory date.
+ * @returns julian century.
+ */
 export function getJulianCentury(data: Date): number {
     const JulianDay = convertToJulianDay(data);
     return (JulianDay - 2451545) / 36525;
 }
 
+/**
+ * Calculate the geometric mean longitude of the Sun.
+ * @param date Gregory date.
+ * @returns geometric mean longitude of the Sun. (in degrees)
+ */
 export function getGeomMeanLongSun(date: Date): number { //in degrees
     const JulianCentury = getJulianCentury(date);
     const de = 280.46646 + JulianCentury * (36000.76983 + JulianCentury * 0.0003032);
@@ -16,18 +33,33 @@ export function getGeomMeanLongSun(date: Date): number { //in degrees
     return de % 360;
 }
 
+/**
+ * Calculate the mean anomaly of the Sun.
+ * @param date Gregory date.
+ * @returns the mean anomaly of the Sun. (in degrees)
+ */
 export function getGeomMeanAnomSun(date: Date): number { // in degrees
     const JulianCentury = getJulianCentury(date);
 
     return 357.52911 + JulianCentury * (35999.05029 - 0.0001537 * JulianCentury);
 }
 
+/**
+ * Calculate the eccentricity of the Earth’s orbit.
+ * @param date Gregory date.
+ * @returns the eccentricity of the Earth’s orbit.
+ */
 export function getEccentEarthOrbit(date: Date): number {
     const JulianCentury = getJulianCentury(date);
 
     return 0.016708634 - JulianCentury * (0.000042037 + 0.0000001267 * JulianCentury);
 }
 
+/**
+ * Calculate the Sun’s equation of the center.
+ * @param date Gregory date.
+ * @returns Sun’s equation of the center.
+ */
 export function getSunEqOfCtr(date: Date): number {
     const GeomMeanAnomSun = getGeomMeanAnomSun(date);
     const JulianCentury = getJulianCentury(date);
@@ -42,14 +74,30 @@ export function getSunEqOfCtr(date: Date): number {
     return a * b + c * d + e;
 }
 
+/**
+ * Calculate the Sun’s true longitude.
+ * @param date Gregory date
+ * @returns the Sun’s true longitude. (in degrees)
+ */
 export function getSunTrueLong(date: Date): number {
     return getGeomMeanLongSun(date) + getSunEqOfCtr(date);
 }
 
+/**
+ * Calculate the Sun’s true anomaly.
+ * @param date Gregory date
+ * @returns the Sun’s true anomaly (in degrees)
+ */
 export function getSunTrueAnom(date: Date): number {
     return getGeomMeanAnomSun(date) + getSunEqOfCtr(date);
 }
 
+/**
+ * Calculate the Sun’s radius vector 
+ * (the heliocentric distance from the Sun to the Earth center-to-center).
+ * @param date Gregory date
+ * @returns the Sun’s radius vector. (in AUs)
+ */
 export function getSunRadVector(date: Date): number {
     const AccentEarthOrbit = getEccentEarthOrbit(date);
     const SunTrueAnom = getSunTrueAnom(date);
@@ -60,6 +108,11 @@ export function getSunRadVector(date: Date): number {
     return a / b;
 }
 
+/**
+ * Calculate the Sun’s apparent longitude.
+ * @param date Gregory date.
+ * @returns the Sun’s apparent longitude. (in degrees)
+ */
 export function getSunAppLong(date: Date): number {
     const SunTrueLong = getSunTrueLong(date);
     const JulianCentury = getJulianCentury(date);
@@ -69,6 +122,13 @@ export function getSunAppLong(date: Date): number {
     return SunTrueLong - 0.00569 - 0.00478 * a;
 }
 
+/**
+ * Calculate the obliquity of the ecliptic.
+ * (the inclination of the Earth’s equator with respect to 
+ * the plane at which the Sun and planets appear to move across the sky)
+ * @param date Gregory date.
+ * @returns the obliquity of the ecliptic. (in degrees)
+ */
 export function getMeanObliqEcliptic(date: Date): number {
     const JulianCentury = getJulianCentury(date);
 
@@ -80,6 +140,11 @@ export function getMeanObliqEcliptic(date: Date): number {
     return 23 + d / 60;
 }
 
+/**
+ * Calculate the obliquity correction.
+ * @param date Gregory date.
+ * @returns the obliquity correction.(in degrees)
+ */
 export function getObliqCorr(date: Date): number {
     const JulianCentury = getJulianCentury(date);
     const MeanObliqEcliptic = getMeanObliqEcliptic(date);
@@ -89,8 +154,12 @@ export function getObliqCorr(date: Date): number {
     return MeanObliqEcliptic + 0.00256 * a;
 }
 
+/**
+ * Calculate Sun right ascension.
+ * @param date Gregory date.
+ * @returns Sun right ascension. (in degrees)
+ */
 export function getSunRtAscen(date: Date): number {
-    // =DEGREES(ATAN2(COS(RADIANS(P2)),COS(RADIANS(R2))*SIN(RADIANS(P2))))
     const ObliqCorr = getObliqCorr(date);
     const SunAppLong = getSunAppLong(date);
 
@@ -101,6 +170,11 @@ export function getSunRtAscen(date: Date): number {
     return rad2deg(Math.atan2(b * a, c));
 }
 
+/**
+ * Calculate Sun Declination.
+ * @param date Gregory date
+ * @returns Sun Declination. (in degrees)
+ */
 export function getSunDeclin(date: Date): number {
     const SunAppLong = getSunAppLong(date);
     const ObliqCorr = getObliqCorr(date);
@@ -111,6 +185,11 @@ export function getSunDeclin(date: Date): number {
     return rad2deg(Math.asin(a * b));
 }
 
+/**
+ * Calculate var y.
+ * @param date Gregory date.
+ * @returns var y
+ */
 export function getVarY(date: Date): number {
     const ObliqCorr = getObliqCorr(date);
 
@@ -120,6 +199,11 @@ export function getVarY(date: Date): number {
     return a * b;
 }
 
+/**
+ * Calculate Equation of time.
+ * @param date Gregory date.
+ * @returns result of Equation of time. (in minutes)
+ */
 export function getEqOfTime(date: Date): number {
     const VarY = getVarY(date);
     const EccentEarthOrbit = getEccentEarthOrbit(date);
@@ -135,6 +219,12 @@ export function getEqOfTime(date: Date): number {
     return 4 * rad2deg(a - b + c - d - e);
 }
 
+/**
+ * Calculate Hour Angle Of Sunrise.
+ * @param date Gregory date.
+ * @param latitude latitude.
+ * @returns Hour Angle Of Sunrise. (in degrees)
+ */
 export function getHASunrise(date: Date, latitude: number): number {
     const SunDeclin = getSunDeclin(date);
 
@@ -146,18 +236,42 @@ export function getHASunrise(date: Date, latitude: number): number {
     return rad2deg(Math.acos(a / b - c * d));
 }
 
+/**
+ * Calculate Solar Noon Time
+ * @param date Gregory date
+ * @param long longitude
+ * @param timeZone timeZone
+ * @returns Solar Noon Time (in LST)
+ */
 export function getSolarNoon(date: Date, long: number, timeZone: number): number { // return in day
     const EqOfTime = getEqOfTime(date);
 
     return (720 - 4 * long - EqOfTime + timeZone * 60) / 1440;
 }
 
+/**
+ * Calculate sunrise time
+ * @param date Gregory date.
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timeZone
+ * @returns sunrise time (in LST).
+ */
 export function getSunriseTime(date: Date, lat: number, long: number, timeZone: number): number { // return in day
     const SolarNoon = getSolarNoon(date, long, timeZone);
     const HASunrise = getHASunrise(date, lat);
 
     return SolarNoon - HASunrise * 4 / 1440
 }
+
+/**
+ * Calculate sunset time
+ * @param date Gregory date.
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timeZone
+ * @returns sunset time (in LST).
+ */
 
 export function getSunsetTime(date: Date, lat: number, long: number, timeZone: number): number {
     const SolarNoon = getSolarNoon(date, long, timeZone);
@@ -166,12 +280,26 @@ export function getSunsetTime(date: Date, lat: number, long: number, timeZone: n
     return SolarNoon + HASunrise * 4 / 1440
 }
 
+/**
+ * Calculate the sunlight duration.
+ * @param date gregory date
+ * @param lat latitude
+ * @returns the sunlight duration. (in mins)
+ */
 export function getSunlightDuration(date: Date, lat: number): number {
     const HASunrise = getHASunrise(date, lat);
 
     return 8 * HASunrise;
 }
 
+/**
+ * Calculate True Solar Time.
+ * @param date gregory date
+ * @param time time in day (in day)
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns True Solar Time (in mins)
+ */
 export function getTrueSolarTime(date: Date, time: number, long: number, timeZone: number): number {
     const EqOfTime = getEqOfTime(date);
 
@@ -179,6 +307,14 @@ export function getTrueSolarTime(date: Date, time: number, long: number, timeZon
     return excelMod(a, 1440);
 }
 
+/**
+ * Calculate the hour angle.
+ * @param date gregory date
+ * @param time time in day (in day)
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns the hour angle (in degrees)
+ */
 export function getHourAngle(date: Date, time: number, long: number, timeZone: number): number {
     const TrueSolarTime = getTrueSolarTime(date, time, long, timeZone);
 
@@ -187,6 +323,15 @@ export function getHourAngle(date: Date, time: number, long: number, timeZone: n
         : TrueSolarTime / 4 - 180;
 }
 
+/**
+ * Calculate the solar zenith Angle.
+ * @param date gregory date.
+ * @param time time in day (in day)
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns the solar zenith Angle. (in degrees)
+ */
 export function getSolarZenithAngle(date: Date, time: number, lat: number, long: number, timeZone: number): number {
     const SunDeclin = getSunDeclin(date);
     const HourAngle = getHourAngle(date, time, long, timeZone);
@@ -200,12 +345,30 @@ export function getSolarZenithAngle(date: Date, time: number, lat: number, long:
     return rad2deg(Math.acos(a * b + c * d * e));
 }
 
+/**
+ * Calculate solar elevation angle.
+ * @param date gregory date.
+ * @param time time in day (in day)
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns solar elevation angle. (in degrees)
+ */
 export function getSolarElevationAngle(date: Date, time: number, lat: number, long: number, timeZone: number): number {
     const SolarZenithAngle = getSolarZenithAngle(date, time, lat, long, timeZone);
 
     return 90 - SolarZenithAngle;
 }
 
+/**
+ * Calculate approximate atmospheric refraction.
+ * @param date gregory date.
+ * @param time time in day (in day)
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns approximate atmospheric refraction. (in degrees)
+ */
 export function getApproxAtmosphericRefraction(date: Date, time: number, lat: number, long: number, timeZone: number): number {
     const SolarElevationAngle = getSolarElevationAngle(date, time, lat, long, timeZone);
 
@@ -235,6 +398,15 @@ export function getApproxAtmosphericRefraction(date: Date, time: number, lat: nu
     })() / 3600;
 }
 
+/**
+ * Calculate Solar elevation corrected atmospheric refraction.
+ * @param date gregory date.
+ * @param time time in day (in day)
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns Solar elevation corrected atmospheric refraction. (in degrees)
+ */
 export function getSolarElevationCorrectedForAtmRefraction(date: Date, time: number, lat: number, long: number, timeZone: number): number {
     const SolarElevationAngle = getSolarElevationAngle(date, time, lat, long, timeZone);
     const ApproxAtmosphericRefraction = getApproxAtmosphericRefraction(date, time, lat, long, timeZone);
@@ -242,6 +414,15 @@ export function getSolarElevationCorrectedForAtmRefraction(date: Date, time: num
     return SolarElevationAngle + ApproxAtmosphericRefraction;
 }
 
+/**
+ * Calculate Solar Azimuth angle.
+ * @param date gregory date.
+ * @param time time in day (in day)
+ * @param lat latitude
+ * @param long longitude
+ * @param timeZone timezone
+ * @returns Solar Azimuth angle. (degrees cw from N)
+ */
 export function getSolarAzimuthAngle(date: Date, time: number, lat: number, long: number, timeZone: number): number {
     const SolarZenithAngle = getSolarZenithAngle(date, time, lat, long, timeZone);
     const HourAngle = getHourAngle(date, time, long, timeZone);
