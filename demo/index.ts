@@ -1,4 +1,4 @@
-import {getSunsetTime } from "../src/core/core";
-import { formatTime } from "../src/core/utils";
+import {getSunsetTime } from "../src/core";
+import { formatTime } from "../src/utils";
 
 console.log(formatTime(getSunsetTime(new Date(), 21.028511, 105.804817, +7)));

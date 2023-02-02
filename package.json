@@ -1,24 +1,39 @@
 {
-  "name": "sunset_calc",
+  "name": "@nghiavuive/sunset_calc",
   "version": "1.0.0",
-  "main": "index.js",
-  "devDependencies": {
-    "@jest/globals": "^29.4.1",
-    "jest-environment-jsdom": "^29.4.1",
-    "ts-jest": "^29.0.5"
-  },
-  "scripts": {
-    "test": "jest --coverage --watchAll"
-  },
+  "description": "calculation sunrise, sunset and more",
+  "author": "Nghiacangao",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NghiaCaNgao/sun_calculator.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/NghiaCaNgao/sun_calculator/issues"
   },
   "homepage": "https://github.com/NghiaCaNgao/sun_calculator#readme",
-  "description": ""
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "devDependencies": {
+    "@jest/globals": "^29.4.1",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "jest-environment-jsdom": "^29.4.1",
+    "rollup": "^3.12.1",
+    "rollup-plugin-dts": "^5.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "ts-jest": "^29.0.5",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "test": "jest --coverage --watchAll",
+    "build": "concurrently \"rmdir -rf dist\" \"rollup -c \""
+  }
 }

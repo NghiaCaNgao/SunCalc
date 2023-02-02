@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals"
-import { deg2rad, excelMod, formatTime, rad2deg } from "../src/core/utils"
+import { deg2rad, excelMod, formatTime, rad2deg } from "../src/utils"
 
 describe("Test utils", () => {
     test("Test 'deg2rad' function", () => {

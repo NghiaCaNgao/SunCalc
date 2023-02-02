@@ -7,8 +7,8 @@ import {
     getSolarZenithAngle, getSunAppLong, getSunDeclin, getSunEqOfCtr, getSunlightDuration,
     getSunRadVector, getSunriseTime, getSunRtAscen, getSunsetTime, getSunTrueAnom,
     getSunTrueLong, getTrueSolarTime, getVarY
-} from "../src/core/core";
-import { formatTime } from "../src/core/utils";
+} from "../src/core";
+import { formatTime } from "../src/utils";
 
 const date = new Date('1/1/2010 00:00:00');
 const lat = 40;
