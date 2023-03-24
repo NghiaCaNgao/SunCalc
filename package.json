@@ -1,6 +1,6 @@
 {
   "name": "@nghiavuive/sunset_calc",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "calculation sunrise, sunset and more",
   "author": "Nghiacangao",
   "license": "ISC",
@@ -12,13 +12,11 @@
     "url": "https://github.com/NghiaCaNgao/sun_calculator/issues"
   },
   "homepage": "https://github.com/NghiaCaNgao/sun_calculator#readme",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "files": [
-    "dist"
-  ],
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
+  "files": [
+    "/dist"
+  ],
   "devDependencies": {
     "@jest/globals": "^29.4.1",
     "@rollup/plugin-commonjs": "^24.0.1",

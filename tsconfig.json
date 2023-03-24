@@ -1,36 +1,11 @@
 {
     "compilerOptions": {
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
-        "allowJs": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "resolveJsonModule": true,
+        "module": "commonjs",
         "target": "es5",
-        "isolatedModules": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "module": "ES6",
-        "moduleResolution": "node",
         "declaration": true,
-        "declarationDir": "types",
-        "sourceMap": false,
-        "outDir": "dist",
-        "emitDeclarationOnly": false,
-        "baseUrl": ".",
+        "outDir": "./dist"
     },
-    "typeRoots": [
-        "./node_modules/@types",
-    ],
     "include": [
-        "./src",
-    ],
-    "exclude": [
-        "node_modules"
+        "src/**/*"
     ]
 }
