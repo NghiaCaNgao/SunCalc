@@ -24,13 +24,13 @@ describe("Test cases: 'Sun class'", () => {
 
     test("Tests `setDate` func", () => {
         let sun = new Sun(options);
-        sun.setDate(new Date(2023, 1, 23));
+        sun.setDate(new Date(1677085200000)); // 2023-02-23
 
         expect(sun.get()).toEqual({
             lat: 21,
             long: 105,
             time_zone: 7,
-            date: new Date(2023, 1, 23),
+            date: new Date(1677085200000),
             jd: 2459998.2083333335
         })
 
