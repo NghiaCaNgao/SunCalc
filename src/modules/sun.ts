@@ -31,7 +31,7 @@ export class Sun {
         this._jd = convertToJulianDay(date);
     }
 
-    setLatLong(lat: number, long: number) {
+    setLatLong(lat: number, long: number): void {
         if (lat < -90 || lat > 90) throw new Error("Invalid latitude");
         if (long < -180 || long > 180) throw new Error("Invalid longitude");
 
@@ -39,7 +39,7 @@ export class Sun {
         this._long = long;
     }
 
-    setTimeZone(time_zone: number) {
+    setTimeZone(time_zone: number): void {
         let TZList = new Set<number>([
             -12, -11, -10, -9.5, -9, -8, -7, -6, -5, -4, -3.5, -3,
             -2, -1, 0, 1, 2, 3, 3.5, 4, 4.5, 5, 5.5, 5.75, 6, 6.5,
@@ -59,15 +59,15 @@ export class Sun {
         }
     }
 
-    getSunsetTime() {
+    getSunsetTime(): string {
         return formatTime(getSunsetTime(this._date, this._lat, this._long, this._time_zone));
     }
 
-    getSunriseTime() {
+    getSunriseTime(): string {
         return formatTime(getSunriseTime(this._date, this._lat, this._long, this._time_zone));
     }
 
-    getSunlightDuration() {
+    getSunlightDuration(): string {
         return formatTime(getSunlightDuration(this._date, this._lat) / 60 / 24);
     }
 }
