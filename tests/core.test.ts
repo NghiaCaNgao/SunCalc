@@ -10,7 +10,7 @@ import {
 } from "@src/core";
 import { formatTime } from "src";
 
-const date = new Date('1/1/2010 00:00:00');
+const date = new Date(2010, 0, 1);
 const lat = 40;
 const long = -105;
 const timeZone = -7;
@@ -22,7 +22,7 @@ const time_4 = 0.1 / 24 * 142;
 describe("Core function test", () => {
     test("test 'covertToJulianDay' func", () => {
         console.log(date.valueOf(), date.getTime());
-        
+
         expect(convertToJulianDay(date)).toBe(2455197.2083333335);
         expect(() => convertToJulianDay(new Date("1/1/1969"))).toThrowError("Invalid date");
     });
@@ -129,8 +129,8 @@ describe("Core function test", () => {
         expect(getApproxAtmosphericRefraction(date, time, lat, long, timeZone)).toBe(0.0017596994314284073);
         expect(getApproxAtmosphericRefraction(date, time_2, lat, long, timeZone)).toBe(0.06068187246946848);
         expect(getApproxAtmosphericRefraction(date, time_3, lat, long, timeZone)).toBe(0.3201092406797924);
-        expect(getApproxAtmosphericRefraction(date, time_3, lat, long, timeZone)).toBe(0.3201092406797924);        
-        expect(getApproxAtmosphericRefraction(new Date(2010, 4, 5), 12/24, 20, -105, -7)).toBe(0);
+        expect(getApproxAtmosphericRefraction(date, time_3, lat, long, timeZone)).toBe(0.3201092406797924);
+        expect(getApproxAtmosphericRefraction(new Date(2010, 4, 5), 12 / 24, 20, -105, -7)).toBe(0);
     });
 
     test("test 'getSolarElevationCorrectedForAtmRefraction' func", () => {
