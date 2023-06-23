@@ -70,12 +70,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-        ############# UPDATE COVERAGE ##############
-      - name: npm install, make test-coverage
-        run: |
-          npm install
-          make test-coverage
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2

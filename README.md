@@ -8,6 +8,7 @@ Cloned từ <b><a href="https://gml.noaa.gov/grad/solcalc/">NOAA Solar Calculato
 ![npm](https://img.shields.io/npm/v/@nghiavuive/sunset_calc)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@nghiavuive/sunset_calc)
 ![npm downloads](https://img.shields.io/npm/dy/@nghiavuive/sunset_calc)
+[![Coverage Status](https://coveralls.io/repos/github/NghiaCaNgao/SunCalc/badge.svg?branch=dev)](https://coveralls.io/github/NghiaCaNgao/SunCalc?branch=dev)
 
 </div>
 
