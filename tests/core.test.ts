@@ -7,8 +7,8 @@ import {
     getSolarZenithAngle, getSunAppLong, getSunDeclin, getSunEqOfCtr, getSunlightDuration,
     getSunRadVector, getSunriseTime, getSunRtAscen, getSunsetTime, getSunTrueAnom,
     getSunTrueLong, getTrueSolarTime, getVarY
-} from "../src/core";
-import { formatTime } from "../src/utils";
+} from "@src/core";
+import { formatTime } from "src";
 
 const date = new Date('1/1/2010 00:00:00');
 const lat = 40;
@@ -19,14 +19,10 @@ const time_2 = 0.1 / 24 * 91;
 const time_3 = 0.1 / 24 * 76;
 const time_4 = 0.1 / 24 * 142;
 
-console.log(formatTime(time_3));
-console.log(getSolarElevationAngle(date, time_3, lat, long, timeZone));
-
-
-
 describe("Core function test", () => {
     test("test 'covertToJulianDay' func", () => {
         expect(convertToJulianDay(date)).toBe(2455197.2083333335);
+        expect(() => convertToJulianDay(new Date("1/1/1969"))).toThrowError("Invalid date");
     });
 
     test("test 'getJulianCentury' func", () => {
@@ -131,6 +127,8 @@ describe("Core function test", () => {
         expect(getApproxAtmosphericRefraction(date, time, lat, long, timeZone)).toBe(0.0017596994314284073);
         expect(getApproxAtmosphericRefraction(date, time_2, lat, long, timeZone)).toBe(0.06068187246946848);
         expect(getApproxAtmosphericRefraction(date, time_3, lat, long, timeZone)).toBe(0.3201092406797924);
+        expect(getApproxAtmosphericRefraction(date, time_3, lat, long, timeZone)).toBe(0.3201092406797924);        
+        expect(getApproxAtmosphericRefraction(new Date(2010, 4, 5), 12/24, 20, -105, -7)).toBe(0);
     });
 
     test("test 'getSolarElevationCorrectedForAtmRefraction' func", () => {
@@ -143,4 +141,3 @@ describe("Core function test", () => {
         expect(getSolarAzimuthAngle(date, time_4, lat, long, timeZone)).toBe(211.49646715364298);
     });
 });
-

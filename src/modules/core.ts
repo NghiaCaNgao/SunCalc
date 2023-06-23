@@ -1,17 +1,20 @@
 import { deg2rad, rad2deg, excelMod } from "./utils";
 
 /**
- * Convert Gregory to Julius day.
+ * Convert Gregory to Julius day. Valid from 1970-01-01 00:00 UTC
  * Julius day [https://vi.wikipedia.org/wiki/Ng%C3%A0y_Julius]
  * @param date Gregory date.
  * @returns Julius day.
  */
 export function convertToJulianDay(date: Date): number {
-    return (date.valueOf() / 86400000) + 2440587.5;
+    if (date.getFullYear() >= 1970) {
+        return (date.valueOf() / 86400000) + 2440587.5;
+    }
+    else throw new Error("Invalid date");
 }
 
 /**
- * Calculate julian century.
+ * Calculate julian century. Valid from 1970-01-01 00:00 UTC
  * Julius day [https://vi.wikipedia.org/wiki/Ng%C3%A0y_Julius]
  * @param data Gregory date.
  * @returns julian century.
