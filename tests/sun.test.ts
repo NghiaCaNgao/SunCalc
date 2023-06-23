@@ -4,7 +4,7 @@ import { ISun, Sun } from "@src/sun";
 
 describe("Test cases: 'Sun class'", () => {
     let options: ISun = {
-        date: new Date(2023, 5, 23),
+        date: new Date(1687453200000), // 2023-06-23
         lat: 21,
         long: 105,
         time_zone: 7
@@ -17,7 +17,7 @@ describe("Test cases: 'Sun class'", () => {
             lat: 21,
             long: 105,
             time_zone: 7,
-            date: new Date(2023, 5, 23),
+            date: new Date(1687453200000),
             jd: 2460118.2083333335
         })
     })
@@ -45,7 +45,7 @@ describe("Test cases: 'Sun class'", () => {
             lat: 10,
             long: 10,
             time_zone: 7,
-            date: new Date(2023, 5, 23),
+            date: new Date(1687453200000),
             jd: 2460118.2083333335
         })
 
@@ -63,7 +63,7 @@ describe("Test cases: 'Sun class'", () => {
             lat: 21,
             long: 105,
             time_zone: 12.75,
-            date: new Date(2023, 5, 23),
+            date: new Date(1687453200000),
             jd: 2460118.2083333335
         })
 
