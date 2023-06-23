@@ -21,6 +21,8 @@ const time_4 = 0.1 / 24 * 142;
 
 describe("Core function test", () => {
     test("test 'covertToJulianDay' func", () => {
+        console.log(date.valueOf(), date.getTime());
+        
         expect(convertToJulianDay(date)).toBe(2455197.2083333335);
         expect(() => convertToJulianDay(new Date("1/1/1969"))).toThrowError("Invalid date");
     });
