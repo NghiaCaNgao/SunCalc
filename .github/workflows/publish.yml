@@ -1,5 +1,5 @@
-name: Publish LunarDate
-run-name: ${{ github.actor }} publishes LunarDate
+name: Publish SunCalc
+run-name: ${{ github.actor }} publishes SunCalc
 on:
   pull_request:
     types:

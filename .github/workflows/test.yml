@@ -1,5 +1,5 @@
-name: Test LunarDate
-run-name: ${{ github.actor }} tests LunarDate
+name: Test SunCalc
+run-name: ${{ github.actor }} tests SunCalc
 on: [pull_request]
 jobs:
   test-modules:
