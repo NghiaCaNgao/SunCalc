@@ -40,6 +40,12 @@ jobs:
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v1
 
+        ############# UPDATE COVERAGE ##############
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ github.token }}
+
         ############# TAG RELEASE ##############
       - name: "Push tag v${{ steps.package-version.outputs.current-version }}"
         uses: rickstaa/action-create-tag@v1 # create tag
@@ -70,12 +76,3 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-        ############# UPDATE COVERAGE ##############
-      - name: npm install, make test-coverage
-        run: |
-          npm install
-          make test-coverage
-
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
