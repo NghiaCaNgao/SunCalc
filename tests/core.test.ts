@@ -8,9 +8,9 @@ import {
     getSunRadVector, getSunriseTime, getSunRtAscen, getSunsetTime, getSunTrueAnom,
     getSunTrueLong, getTrueSolarTime, getVarY
 } from "@src/core";
-import { formatTime } from "src";
 
-const date = new Date(2010, 0, 1);
+const date = new Date(1262278800000); // January 1, 2010
+
 const lat = 40;
 const long = -105;
 const timeZone = -7;
