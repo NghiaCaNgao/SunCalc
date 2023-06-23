@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1687516302352" clover="3.2.0">
-  <project timestamp="1687516302353" name="All files">
+<coverage generated="1687533649620" clover="3.2.0">
+  <project timestamp="1687533649620" name="All files">
     <metrics statements="198" coveredstatements="198" conditionals="26" coveredconditionals="25" methods="42" coveredmethods="42" elements="266" coveredelements="265" complexity="0" loc="198" ncloc="198" packages="1" files="3" classes="3"/>
     <file name="core.ts" path="F:\sunset_calc\src\modules\core.ts">
       <metrics statements="158" coveredstatements="158" conditionals="12" coveredconditionals="11" methods="29" coveredmethods="29"/>

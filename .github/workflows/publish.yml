@@ -40,12 +40,6 @@ jobs:
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v1
 
-        ############# UPDATE COVERAGE ##############
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
         ############# TAG RELEASE ##############
       - name: "Push tag v${{ steps.package-version.outputs.current-version }}"
         uses: rickstaa/action-create-tag@v1 # create tag

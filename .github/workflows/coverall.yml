@@ -1,0 +1,24 @@
+name: "Update coverall"
+run-name: ${{ github.actor }} updates SunCalc
+on:
+  push:
+    branches:
+      - "dev"
+      - "main"
+jobs:
+  create-coverall:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - name: Execution tests
+        run: |
+          npm ci
+          npm install
+          npm run test
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
