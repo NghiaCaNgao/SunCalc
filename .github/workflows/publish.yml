@@ -44,8 +44,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ github.token }}
-          allow-empty: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
         ############# TAG RELEASE ##############
       - name: "Push tag v${{ steps.package-version.outputs.current-version }}"
