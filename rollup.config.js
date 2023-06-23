@@ -11,7 +11,11 @@ const root_dir = production ? "dist" : "bin/dist"
 export default [
     {
         input: `src/index.ts`,
-        plugins: [typescript(), esbuild()],
+        plugins: [
+            typescript({
+                exclude: ["tests/**/*.ts"]
+            }),
+            esbuild()],
         output: [
             {
                 file: `${root_dir}/index.umd.js`,
@@ -28,7 +32,10 @@ export default [
     },
     {
         input: `src/index.ts`,
-        plugins: [typescript()],
+        plugins: [
+            typescript({
+                exclude: ["tests/**/*.ts"]
+            })],
         output: {
             file: `${root_dir}/index.cjs`,
             format: 'cjs', // cjs - for Node.js
@@ -37,7 +44,11 @@ export default [
     },
     {
         input: `src/index.ts`,
-        plugins: [typescript(), esbuild(), terser()],
+        plugins: [
+            typescript({
+                exclude: ["tests/**/*.ts"]
+            }),
+            esbuild(), terser()],
         output: [
             {
                 file: `${root_dir}/index.umd.min.js`,
